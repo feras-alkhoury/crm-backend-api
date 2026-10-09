@@ -42,7 +42,8 @@ def test_health():
     assert response.json()["status"] == "healthy"
 
 
-def test_register():    response = client.post(
+def test_register():
+    response = client.post(
         "/auth/register",
         json={
             "username": "test_user",
