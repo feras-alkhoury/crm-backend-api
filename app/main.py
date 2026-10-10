@@ -220,6 +220,21 @@ def update_customer(
             detail="Customer not found",
         )
 
+    duplicate_email = (
+        db.query(Customer)
+        .filter(
+            Customer.email == customer.email,
+            Customer.id != customer_id,
+        )
+        .first()
+    )
+
+    if duplicate_email:
+        raise HTTPException(
+            status_code=400,
+            detail="Customer with this email already exists",
+        )
+
     existing.name = customer.name
     existing.email = customer.email
     existing.phone = customer.phone
